@@ -1,0 +1,98 @@
+## Set the API endpoint used to create the Deployment resource.
+apiVersion: apps/v1
+## Define the type of the resource.
+kind: Deployment
+## Set the parameters that make the object identifiable, such as its name, namespace, and labels.
+metadata:
+  annotations:
+  labels:
+    app: airport-finder
+  name: airport-finder
+  namespace: scnfs-demo
+## Define the desired configuration for the Deployment resource.
+spec:
+  ## Set the number of replicas.
+  ## This will create a ReplicaSet that will manage 3 pods of the Airport Finder application.
+  replicas: 1
+  ## Identify the pods managed by this Deployment using the following selectors.
+  ## In this case, all pods with the label `airport-finder`.
+  selector:
+    matchLabels:
+      app: airport-finder
+  ## Set the RollingOut strategy for the Deployment.
+  ## For example, roll out only 25% of the new pods at a time.
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  ## Set the configuration for the pods.
+  template:
+    ## Define the identifiable metadata for the pods.
+    ## For example, all pods should have the label `airport-finder`
+    metadata:
+      labels:
+        app: airport-finder
+    ## Define the desired state of the pod configuration.
+    spec:
+      containers:
+        ## Set the image to be executed inside the container and image pull policy
+        ## In this case, run the `airport-finder` application in version 0.0.1-SNAPSHOT and
+        ## only pull the image if it's not available on the current host.
+      - image: verdoso/airport-finder:latest
+        #imagePullPolicy: IfNotPresent
+        name: airport-finder
+        ## Expose the port the container is listening on.
+        ## For example, exposing the application port 9999 via TCP.
+        ports:
+        - containerPort: 9999
+          protocol: TCP
+        ## Define the rules for the liveness probes.
+        ## For example, verify the application on the main route `/`,
+        ## on application port 9999. If the application is not responsive, then the pod will be restarted automatically. 
+#        livenessProbe:
+#           httpGet:
+#             host: localhost
+#             path: /manage/health
+#             port: 9999
+#           failureThreshold: 1 
+#           periodSeconds: 20
+#           initialDelaySeconds: 20
+        ## Define the rules for the readiness probes.
+        ## For example, verify the application on the main route `/`,
+        ## on application port 9999. If the application is responsive, then traffic will be sent to this pod.
+#        readinessProbe:
+#           httpGet:
+#             host: localhost
+#             path: /health
+#             port: 9999
+#           failureThreshold: 1 
+#           periodSeconds: 20
+#           initialDelaySeconds: 20
+        ## The secrets where the authentication data to be used in the different apps reside
+        volumeMounts:
+          - name: secret-volume
+            mountPath: /etc/secrets
+        ## The enviroment variable with which to tell the app where the secrets are mounted
+        env: 
+          -
+            name: docker-secret.bind-path
+            value: /etc/secrets
+        ## Set the resource requests and limits for an application.
+#        resources:
+        ## The resource requests guarantees that the desired amount 
+        ## CPU and memory is allocated for a pod. In this example, 
+        ## the pod will be allocated with 64 Mebibytes and 250 miliCPUs.
+#          requests:
+#            memory: "64Mi"
+#            cpu: "250m"
+        ## The resource limits ensure that the application is not consuming 
+        ## more than the specified CPU and memory values. In this example, 
+        ## the pod will not surpass 128 Mebibytes and 500 miliCPUs.
+#          limits:
+#            memory: "128Mi"
+#            cpu: "500m"
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: scnfs-secrets

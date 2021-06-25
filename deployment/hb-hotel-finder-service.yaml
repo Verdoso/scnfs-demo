@@ -1,0 +1,23 @@
+## Set the API endpoint used to create the Service resource.
+apiVersion: v1
+## Define the type of the resource.
+kind: Service
+## Set the parameters that make the object identifiable, such as its name, namespace, and labels.
+metadata:
+  labels:
+    app: hb-hotel-finder
+  name: hb-hotel-finder
+  namespace: scnfs-demo
+## Define the desired configuration for the Service resource.
+spec:
+  ## Define the ports that the service should serve on. 
+  ports:
+  - port: 8888
+    protocol: TCP
+    targetPort: 8888
+  ## Identify the pods managed by this Service using the following selectors.
+  ## In this case, all pods with the label `hb-hotel-finder`.
+  selector:
+    app: hb-hotel-finder
+  ## Define the Service type, here set to ClusterIP.
+  type: ClusterIP
