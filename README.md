@@ -4,9 +4,11 @@ This is an exercise I have implemented to practice what I have learnt at the SUS
 The same project simulates a travel planning web app, where you select number of passengers, the destination where you want to travel and the dates, and it returns a list of available hotels. Once you have chosen a hotel, it let's you select a departing airport (from the closest airports to the ip accessing the service) and an arriving airport (from the closest airports to the selected hotel). I might implement later on a flight selection if I find a free API to get data from.
 
 It is implemented following the Microservice architecture, so the service is divided in three pieces:
-* The Travel Planner UI, the customer facing interface that calls the other microservices to get the data.
-* The Airport Finder service, that returns a list of closest airport to an IP or a given position.
-* The HB Hotel Finder service, that returns the available destinations to choose from and a list of available hotels and their prices given some criteria.
+* [The Travel Planner UI](https://github.com/Verdoso/Travel-Planner-UI), the customer facing interface that calls the other microservices to get the data.
+* [The Airport Finder service](https://github.com/Verdoso/Airport-Finder), that returns a list of closest airport to an IP or a given position.
+* [The HB Hotel Finder service](https://github.com/Verdoso/HBHotelFinder), that returns the available destinations to choose from and a list of available hotels and their prices given some criteria.
+
+All pieces are published as docker images in my [Docker Hub](https://hub.docker.com/) space. The images are created using GitHub Actions on request.
 
 If you want to test it yourself, you'll need to have a couple of free accounts:
 * An account for the MaxMind GeoIP2 service - see https://www.maxmind.com/en/geoip2-services-and-databases
