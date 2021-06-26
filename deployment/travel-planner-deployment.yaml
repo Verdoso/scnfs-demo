@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - image: verdoso/travel-planner-ui:latest
-        imagePullPolicy: IfNotPresent
+        #imagePullPolicy: IfNotPresent
         name: travel-planner
         ports:
         - containerPort: 7777
