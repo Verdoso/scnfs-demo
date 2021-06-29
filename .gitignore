@@ -2,3 +2,5 @@
 /deployment/hotelbeds.shared-secret
 /deployment/geoip2.account-id
 /deployment/geoip2.license-key
+/deployment/skyscanner.key
+/deployment/skyscanner.host

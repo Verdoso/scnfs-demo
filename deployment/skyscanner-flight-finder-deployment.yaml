@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    app: hb-hotel-finder
-  name: hb-hotel-finder
+    app: skyscanner-flight-finder
+  name: skyscanner-flight-finder
   namespace: scnfs-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hb-hotel-finder
+      app: skyscanner-flight-finder
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,13 +19,14 @@ spec:
   template:
     metadata:
       labels:
-        app: hb-hotel-finder
+        app: skyscanner-flight-finder
     spec:
       containers:
-      - image: verdoso/hb-hotel-finder:latest
-        name: hb-hotel-finder
+      - image: verdoso/skyscanner-flight-finder:latest
+        #imagePullPolicy: IfNotPresent
+        name: skyscanner-flight-finder
         ports:
-        - containerPort: 8888
+        - containerPort: 3333
           protocol: TCP
         volumeMounts:
           - name: secret-volume

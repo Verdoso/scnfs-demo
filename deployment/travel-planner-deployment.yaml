@@ -35,3 +35,6 @@ spec:
           -
             name: HOTEL_FINDER_ADDRESS
             value: http://hb-hotel-finder.scnfs-demo:8888
+          -
+            name: FLIGHT_FINDER_ADDRESS
+            value: http://skyscanner-flight-finder.scnfs-demo:3333

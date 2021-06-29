@@ -13,6 +13,7 @@ All pieces are published as docker images in my [Docker Hub](https://hub.docker.
 If you want to test it yourself, you'll need to have a couple of free accounts:
 * An account for the MaxMind GeoIP2 service - see https://www.maxmind.com/en/geoip2-services-and-databases
 * An account for the Apitude API at the Hotelbeds Developer Portal  - see https://developer.hotelbeds.com/
+* An account for the Skyscanner Flight Search API at the RapidAPI site - see https://rapidapi.com/skyscanner/api/skyscanner-flight-search/
 
 ##Testing in Kubernetes
 Once you have vagrant up & running using the Vagrantfile in the home directory and you have k3s installed ([installation instructions here](https://rancher.com/docs/k3s/latest/en/installation/) ):
@@ -30,6 +31,7 @@ Move to the `/vagrant/deployment` directory
 ### Add the real secrets
 * MaxMind GeoIP2 secrets: Create a file named *geoip2.account-id* with the id, and another one named *geoip2.license-key* with the license key, of your MaxMind GeoIP2 service account.
 * Hotelbed secrets: Create a file named *hotelbeds.api-key* and another one named *hotelbeds.shared-secret* and fill them up with your Apitude license data from the Hotelbeds Developer site.
+* SkyScanner secrets: Create a file named *skyscanner.key* and another one named *skyscanner.host* and fill them up with your SkyScanner API authentication data from the RapidAPI site.
 
 No worries, git is configured to ignore those files so they won't be added to the source repository.
 
@@ -40,6 +42,10 @@ Run the following command to patch the secrets with the MaxMind GeoIP2 data:
 ### Add the Hotelbeds api-key and shared-secrets to the secrets
 Run the following command to patch the secrets with the Hotelbeds Apitude data:
 `kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./hotelbeds.api-key --from-file=./hotelbeds.shared-secret -o yaml | kubectl apply -f -`
+
+### Add the SkyScanner API key and host to the secrets
+Run the following command to patch the secrets with the Hotelbeds Apitude data:
+`kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./skyscanner.key --from-file=./skyscanner.host -o yaml | kubectl apply -f -`
 
  ### Deploy the airport-finder application
 `kubectl apply -f airport-finder-deployment.yaml`
@@ -52,6 +58,12 @@ Run the following command to patch the secrets with the Hotelbeds Apitude data:
 
  ### Create the service to support the hb-hotel-finder application
 `kubectl apply -f hb-hotel-finder-service.yaml`
+
+ ### Deploy the skyscanner-flight-finder application
+`kubectl apply -f skyscanner-flight-finder-deployment.yaml`
+
+ ### Create the service to support the skyscanner-flight-finder application
+`kubectl apply -f skyscanner-flight-finder-service.yaml`
 
  ### Deploy the travel-planner application
 `kubectl apply -f travel-planner-deployment.yaml`
@@ -70,6 +82,9 @@ Run the following command to patch the secrets with the Hotelbeds Apitude data:
 ### Prepare the script to find the hb-hotel-finder pod name to use in commands'
 `alias hbfindpod='POD=$(kubectl get pod -l app=hb-hotel-finder -o jsonpath="{.items[0].metadata.name}")'`
 
+### Prepare the script to find the skyscanner-flight-finder pod name to use in commands'
+`alias skfindpod='POD=$(kubectl get pod -l app=skyscanner-flight-finder -o jsonpath="{.items[0].metadata.name}")'`
+
 ### Prepare the script to find the travel-planner pod name to use in commands'
 `alias tpfindpod='POD=$(kubectl get pod -l app=travel-planner -o jsonpath="{.items[0].metadata.name}")'`
 
@@ -86,6 +101,9 @@ After that you should be able to access the Travel Planner Demo at http://192.16
 ### Check the hb-hotel-finder pod details
 `hbfindpod;kubectl describe po $POD`
 
+### Check the skyscanner-flight-finder pod details
+`skfindpod;kubectl describe po $POD`
+
 ### Check the travel-planner pod details
 `tpfindpod;kubectl describe po $POD`
 
@@ -94,6 +112,9 @@ After that you should be able to access the Travel Planner Demo at http://192.16
 
 ### Check hb-hotel-finder pod logs
 `hbfindpod;kubectl logs --follow $POD`
+
+### Check skyscanner-flight-finder pod logs
+`skfindpod;kubectl logs --follow $POD`
 
 ### Check travel-planner pod logs
 `tpfindpod;kubectl logs --follow $POD`
@@ -104,6 +125,9 @@ After that you should be able to access the Travel Planner Demo at http://192.16
 ### Open a terminal in the hb-hotel-finder log, in case you need to check things
 `hbfindpod;kubectl exec --stdin --tty $POD -- /bin/bash`
 
+### Open a terminal in the skyscanner-flight-finder log, in case you need to check things
+`skfindpod;kubectl exec --stdin --tty $POD -- /bin/bash`
+
 ### Open a terminal in the travel-planner log, in case you need to check things
 `tpfindpod;kubectl exec --stdin --tty $POD -- /bin/bash`
 
@@ -112,5 +136,7 @@ After that you should be able to access the Travel Planner Demo at http://192.16
 `kubectl delete -f airport-finder-service.yaml` \
 `kubectl delete -f hb-hotel-finder-deployment.yaml` \
 `kubectl delete -f hb-hotel-finder-service.yaml` \
+`kubectl delete -f skyscanner-flight-finder-deployment.yaml` \
+`kubectl delete -f skyscanner-flight-finder-service.yaml` \
 `kubectl delete -f travel-planner-deployment.yaml` \
 `kubectl delete -f travel-planner-service.yaml` \

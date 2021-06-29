@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: skyscanner-flight-finder
+  name: skyscanner-flight-finder
+  namespace: scnfs-demo
+spec:
+  ports:
+  - port: 3333
+    protocol: TCP
+    targetPort: 3333
+  selector:
+    app: skyscanner-flight-finder
+  type: ClusterIP
