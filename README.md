@@ -1,7 +1,11 @@
 # Verdoso's SUSE Cloud Native Foundations Scholarship (SCNFS) Demo
 This is an exercise I have implemented to practice what I have learnt at the SUSE Cloud Native Foundations Scholarship (SCNFS).
 
-The same project simulates a travel planning web app, where you select number of passengers, the destination where you want to travel and the dates, and it returns a list of available hotels. Once you have chosen a hotel, it let's you select a departing airport (from the closest airports to the ip accessing the service) and an arriving airport (from the closest airports to the selected hotel). I might implement later on a flight selection if I find a free API to get data from.
+The project simulates a travel planning web app, where you select number of passengers, the destination where you want to go and the travelling dates, and it returns a list of available hotels. Once you have chosen a hotel, it lets you select a departing airport (from the closest airports to the ip accessing the service) and an arriving airport (from the closest airports to the selected hotel). Once you have selected both airports, you can retrieve information about the cheapest flights to go there.
+
+Bear in mind this is a rough demo. In a real application you would display more information, calculate prices propertly etc. The main goal in my case was to develop a set of microservices that can be deployed using Github Actions, that can be configured with secrets, that communicate with each other. I did not want to implement simply an extended Hello World, so I did this.
+
+All the services, so far, have been implemented using Java 16 / Spring Boot because that's the most familiar framework to me. This way it was easier for me to create all services, externalise the configuration, use secrets
 
 It is implemented following the Microservice architecture, so the service is divided in three pieces:
 * [The Travel Planner UI](https://github.com/Verdoso/Travel-Planner-UI), the customer facing interface that calls the other microservices to get the data.
