@@ -7,6 +7,7 @@ It is implemented following the Microservice architecture, so the service is div
 * [The Travel Planner UI](https://github.com/Verdoso/Travel-Planner-UI), the customer facing interface that calls the other microservices to get the data.
 * [The Airport Finder service](https://github.com/Verdoso/Airport-Finder), that returns a list of closest airport to an IP or a given position.
 * [The HB Hotel Finder service](https://github.com/Verdoso/HBHotelFinder), that returns the available destinations to choose from and a list of available hotels and their prices given some criteria.
+* [The SkyScanner Flight Finder service](https://github.com/Verdoso/skyscanner-flight-finder), that returns the flight information to travel to the selected airport, close to the selected hotel, and back.
 
 All pieces are published as docker images in my [Docker Hub](https://hub.docker.com/) space. The images are created using GitHub Actions on request.
 
