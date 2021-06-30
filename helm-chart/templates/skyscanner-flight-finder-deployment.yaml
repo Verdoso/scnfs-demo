@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: skyscanner-flight-finder
+  name: skyscanner-flight-finder
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skyscanner-flight-finder
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: skyscanner-flight-finder
+    spec:
+      containers:
+      - image: {{ .Values.dockerhub.repo }}/skyscanner-flight-finder:{{ .Values.dockerhub.version.skyscanner-flight-finder }}
+        imagePullPolicy: {{ .Values.dockerhub.policy }}
+        name: skyscanner-flight-finder
+        ports:
+        - containerPort: 3333
+          protocol: TCP
+        volumeMounts:
+          - name: secret-volume
+            mountPath: /etc/secrets
+        env: 
+          -
+            name: docker-secret.bind-path
+            value: /etc/secrets
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: scnfs-secrets

@@ -1,0 +1,11 @@
+apiVersion: v1
+name: scnfs-demo 
+description: Instalation of Verdoso's SUSE Cloud Native Foundations Scholarship (SCNFS) Demo
+keywords:
+- java
+- spring
+- travel 
+version: 3.7.0
+maintainers:
+- name: Verdoso 
+  email: verdoso@users.noreply.github.com

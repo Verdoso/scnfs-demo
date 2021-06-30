@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: travel-planner
+  name: travel-planner
+  namespace: {{ .Values.namespace.name }}
+spec:
+  ports:
+  - port: 7777
+    protocol: TCP
+    targetPort: 7777
+  selector:
+    app: travel-planner
+  type: ClusterIP

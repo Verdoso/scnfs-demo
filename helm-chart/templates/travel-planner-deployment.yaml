@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: travel-planner
+  name: travel-planner
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: travel-planner
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: travel-planner
+    spec:
+      containers:
+      - image: {{ .Values.dockerhub.repo }}/travel-planner-ui:{{ .Values.dockerhub.version.travel-planner }}
+        imagePullPolicy: {{ .Values.dockerhub.policy }}
+        name: travel-planner
+        ports:
+        - containerPort: 7777
+          protocol: TCP
+        env: 
+          -
+            name: AIRPORT_FINDER_ADDRESS
+            value: http://airport-finder.scnfs-demo:9999
+          -
+            name: HOTEL_FINDER_ADDRESS
+            value: http://hb-hotel-finder.scnfs-demo:8888
+          -
+            name: FLIGHT_FINDER_ADDRESS
+            value: http://skyscanner-flight-finder.scnfs-demo:3333

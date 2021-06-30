@@ -1,0 +1,10 @@
+namespace:
+  name: scnfs-demo
+dockerhub:
+  repo: verdoso
+  policy: Always
+  version:
+    hb-hotel-finder: latest
+    airport-finder: latest
+    skyscanner-flight-finder: latest
+    travel-planner: latest
