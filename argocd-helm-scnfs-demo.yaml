@@ -12,6 +12,6 @@ spec:
     helm:
       valueFiles:
       - values.yaml
-    #path: 
+    path: helm-chart
     repoURL: https://github.com/Verdoso/scnfs-demo
     targetRevision: HEAD
