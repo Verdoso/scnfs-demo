@@ -40,17 +40,9 @@ Move to the `/vagrant/deployment` directory
 
 No worries, git is configured to ignore those files so they won't be added to the source repository.
 
-### Add the MaxMind GeoIP2 id and license to the secrets
-Run the following command to patch the secrets with the MaxMind GeoIP2 data:
-`kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./geoip2.account-id --from-file=./geoip2.license-key -o yaml | kubectl apply -f -`
-
-### Add the Hotelbeds api-key and shared-secrets to the secrets
-Run the following command to patch the secrets with the Hotelbeds Apitude data:
-`kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./hotelbeds.api-key --from-file=./hotelbeds.shared-secret -o yaml | kubectl apply -f -`
-
-### Add the SkyScanner API key and host to the secrets
-Run the following command to patch the secrets with the Hotelbeds Apitude data:
-`kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./skyscanner.key --from-file=./skyscanner.host -o yaml | kubectl apply -f -`
+### Add the configuration data to the secrets
+Run the following command to patch the secrets with theauthentication data:
+`kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./geoip2.account-id --from-file=./geoip2.license-key --from-file=./hotelbeds.api-key --from-file=./hotelbeds.shared-secret --from-file=./skyscanner.key --from-file=./skyscanner.host -o yaml | kubectl apply -f -`
 
  ### Deploy the airport-finder application
 `kubectl apply -f airport-finder-deployment.yaml`
