@@ -20,6 +20,11 @@ If you want to test it yourself, you'll need to have a couple of free accounts:
 * An account for the Apitude API at the Hotelbeds Developer Portal  - see https://developer.hotelbeds.com/
 * An account for the Skyscanner Flight Search API at the RapidAPI site - see https://rapidapi.com/skyscanner/api/skyscanner-flight-search/
 
+## Deployment in ArgoCD
+![ArgoCD application snapshot](/helm-chart/img/Deployment.png)
+
+
+
 ##Testing in Kubernetes
 Once you have vagrant up & running using the Vagrantfile in the home directory and you have k3s installed ([installation instructions here](https://rancher.com/docs/k3s/latest/en/installation/) ):
 
