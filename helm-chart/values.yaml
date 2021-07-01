@@ -6,5 +6,5 @@ dockerhub:
   version:
     hb_hotel_finder: latest
     airport_finder: latest
-    skyscanner_flight-finder: latest
+    skyscanner_flight_finder: latest
     travel_planner: latest
