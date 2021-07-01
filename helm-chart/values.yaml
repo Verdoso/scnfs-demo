@@ -4,7 +4,7 @@ dockerhub:
   repo: verdoso
   policy: Always
   version:
-    hb-hotel-finder: latest
-    airport-finder: latest
-    skyscanner-flight-finder: latest
-    travel-planner: latest
+    hb_hotel_finder: latest
+    airport_finder: latest
+    skyscanner_flight-finder: latest
+    travel_planner: latest

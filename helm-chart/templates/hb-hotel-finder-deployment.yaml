@@ -22,7 +22,7 @@ spec:
         app: hb-hotel-finder
     spec:
       containers:
-      - image: {{ .Values.dockerhub.repo }}/hb-hotel-finder:{{ .Values.dockerhub.version.hb-hotel-finder }}
+      - image: {{ .Values.dockerhub.repo }}/hb-hotel-finder:{{ .Values.dockerhub.version.hb_hotel_finder }}
         imagePullPolicy: {{ .Values.dockerhub.policy }}
         name: hb-hotel-finder
         ports:

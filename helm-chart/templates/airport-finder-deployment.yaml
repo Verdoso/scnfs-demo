@@ -22,7 +22,7 @@ spec:
         app: airport-finder
     spec:
       containers:
-      - image: {{ .Values.dockerhub.repo }}/airport-finder:{{ .Values.dockerhub.version.airport-finder }}
+      - image: {{ .Values.dockerhub.repo }}/airport-finder:{{ .Values.dockerhub.version.airport_finder }}
         imagePullPolicy: {{ .Values.dockerhub.policy }}
         name: airport-finder
         ports:

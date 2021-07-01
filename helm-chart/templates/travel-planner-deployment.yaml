@@ -22,7 +22,7 @@ spec:
         app: travel-planner
     spec:
       containers:
-      - image: {{ .Values.dockerhub.repo }}/travel-planner-ui:{{ .Values.dockerhub.version.travel-planner }}
+      - image: {{ .Values.dockerhub.repo }}/travel-planner-ui:{{ .Values.dockerhub.version.travel_planner }}
         imagePullPolicy: {{ .Values.dockerhub.policy }}
         name: travel-planner
         ports:
