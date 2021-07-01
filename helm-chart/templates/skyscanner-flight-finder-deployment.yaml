@@ -22,7 +22,7 @@ spec:
         app: skyscanner-flight-finder
     spec:
       containers:
-      - image: {{ .Values.dockerhub.repo }}/skyscanner-flight-finder:{{ .Values.dockerhub.version.skyscanner_flight_finder }}
+      - image: '{{ .Values.dockerhub.repo }}/skyscanner-flight-finder:{{ .Values.dockerhub.version.skyscanner_flight_finder }}'
         imagePullPolicy: {{ .Values.dockerhub.policy }}
         name: skyscanner-flight-finder
         ports:
