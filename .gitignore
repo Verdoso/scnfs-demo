@@ -4,3 +4,5 @@
 /deployment/geoip2.license-key
 /deployment/skyscanner.key
 /deployment/skyscanner.host
+/deployment/seal.crt
+/deployment/seal.key
