@@ -23,10 +23,8 @@ If you want to test it yourself, you'll need to have a couple of free accounts:
 ## Deployment in ArgoCD
 ![ArgoCD application snapshot](/helm-chart/img/Deployment.png)
 
-
-
-##Testing in Kubernetes
-Once you have vagrant up & running using the Vagrantfile in the home directory and you have k3s installed ([installation instructions here](https://rancher.com/docs/k3s/latest/en/installation/) ):
+## Testing in Kubernetes
+Once you have vagrant up & running using the Vagrantfile in the home directory and you have k3s installed ([installation instructions here](https://rancher.com/docs/k3s/latest/en/installation/) ), follow these steps:
 
 **Note:** There is a bug in Windows with Hypervisor & K3s so until is is solved, you should install version v1.20.7+k3s1 with `curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.20.7+k3s1 sh`
 
