@@ -23,7 +23,7 @@ If you want to test it yourself, you'll need to have a couple of free accounts:
 ## Deployment in ArgoCD
 ![ArgoCD application snapshot](/helm-chart/img/Deployment.png)
 
-## Testing in Kubernetes
+## Testing in plain Kubernetes
 Once you have vagrant up & running using the Vagrantfile in the home directory and you have k3s installed ([installation instructions here](https://rancher.com/docs/k3s/latest/en/installation/) ), follow these steps:
 
 **Note:** There is a bug in Windows with Hypervisor & K3s so until is is solved, you should install version v1.20.7+k3s1 with `curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.20.7+k3s1 sh`
@@ -140,3 +140,25 @@ After that you should be able to access the Travel Planner Demo at http://192.16
 `kubectl delete -f skyscanner-flight-finder-service.yaml` \
 `kubectl delete -f travel-planner-deployment.yaml` \
 `kubectl delete -f travel-planner-service.yaml` \
+
+## Testing using ArgoCD
+
+You first need to have ArgoCD installed and reachable from your host, as explained in the course material or following the [ArgoCD installation instructions](https://argoproj.github.io/argo-cd/getting_started/).
+
+Assuming you are already inside Vagrant with ssh:
+
+### Move to the project directory:
+`cd /vagrant`
+
+### Apply the Helm templates to deploy the cluster
+`kubectl apply -f argocd-helm-scnfs-demo.yaml`
+
+### Initialise the namespace and the secret in the cluster
+Login to the ArgoCD interface and synchronise just the namespace and the secrets elements
+
+### Add the configuration to the secrets element
+`cd deployment`
+`kubectl create secret generic scnfs-secrets --save-config --dry-run=client --from-file=./geoip2.account-id --from-file=./geoip2.license-key --from-file=./hotelbeds.api-key --from-file=./hotelbeds.shared-secret --from-file=./skyscanner.key --from-file=./skyscanner.host -o yaml | kubectl apply -f -`
+
+### Initialise the rest of the cluster
+In the ArgoCD interface, synchronise the rest of the elements. DO NOT synchronise the secrets again or it will lose the secrets you just configured.
