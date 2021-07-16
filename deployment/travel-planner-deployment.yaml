@@ -28,6 +28,20 @@ spec:
         ports:
         - containerPort: 7777
           protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /manage/health
+            port: 7777
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 7777
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
         env: 
           -
             name: AIRPORT_FINDER_ADDRESS

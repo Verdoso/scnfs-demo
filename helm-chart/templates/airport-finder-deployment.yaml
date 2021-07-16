@@ -28,6 +28,20 @@ spec:
         ports:
         - containerPort: 9999
           protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /manage/health
+            port: 9999
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9999
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
         volumeMounts:
           - name: secret-volume
             mountPath: /etc/secrets

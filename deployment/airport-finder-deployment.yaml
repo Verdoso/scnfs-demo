@@ -47,28 +47,20 @@ spec:
         ports:
         - containerPort: 9999
           protocol: TCP
-        ## Define the rules for the liveness probes.
-        ## For example, verify the application on the main route `/`,
-        ## on application port 9999. If the application is not responsive, then the pod will be restarted automatically. 
-#        livenessProbe:
-#           httpGet:
-#             host: localhost
-#             path: /manage/health
-#             port: 9999
-#           failureThreshold: 1 
-#           periodSeconds: 20
-#           initialDelaySeconds: 20
-        ## Define the rules for the readiness probes.
-        ## For example, verify the application on the main route `/`,
-        ## on application port 9999. If the application is responsive, then traffic will be sent to this pod.
-#        readinessProbe:
-#           httpGet:
-#             host: localhost
-#             path: /health
-#             port: 9999
-#           failureThreshold: 1 
-#           periodSeconds: 20
-#           initialDelaySeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /manage/health
+            port: 9999
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9999
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
         ## The secrets where the authentication data to be used in the different apps reside
         volumeMounts:
           - name: secret-volume

@@ -27,6 +27,20 @@ spec:
         ports:
         - containerPort: 8888
           protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /manage/health
+            port: 8888
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8888
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 30
         volumeMounts:
           - name: secret-volume
             mountPath: /etc/secrets
