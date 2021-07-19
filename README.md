@@ -1,6 +1,8 @@
 # Verdoso's SUSE Cloud Native Foundations Scholarship (SCNFS) Demo
 This is an exercise I have implemented to practice what I have learnt at the SUSE Cloud Native Foundations Scholarship (SCNFS).
 
+[![Genially's Presentation](/helm-chart/img/GeniallysSnapshot.png)](https://view.genial.ly/60e3199ef85d7f0dbcbff023/presentation-verdosos-scnfs-demo)
+
 The project simulates a travel planning web app, where you select number of passengers, the destination where you want to go and the travelling dates, and it returns a list of available hotels. Once you have chosen a hotel, it lets you select a departing airport (from the closest airports to the ip accessing the service) and an arriving airport (from the closest airports to the selected hotel). Once you have selected both airports, you can retrieve information about the cheapest flights to go there.
 
 Bear in mind this is a rough demo. In a real application you would display more information, calculate prices propertly etc. The main goal in my case was to develop a set of microservices that can be deployed using Github Actions, that can be configured with secrets, that communicate with each other. I did not want to implement simply an extended Hello World, so I did this.
